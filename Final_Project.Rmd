@@ -43,6 +43,7 @@ Website: https://all3dp.com/reviews/page/1
 CSS selector: .headline--l
 
 <!-- From https://www.datacamp.com/community/tutorials/r-web-scraping-rvest -->
+<!-- Keep in mind that if All3DP asks you to name your user agent to do rvest::user_agent()-->
 ```{r}
 list_of_pages <- str_c("https://all3dp.com/reviews/page/", 1:20)
 review_names <- list_of_pages %>%
@@ -50,6 +51,40 @@ review_names <- list_of_pages %>%
 names(review_names) <- letters[1:20]
 review_names
 ```
+Now that I have the review names, I need to choose the ones that actually have to do with a 3D printer
+Basically, I'm just going to filter so that the title contains review and doesn't include bad things
+For example, "filament", "scanner", "CNC", etc
+After that, I can get a subreddit using the brand name
+The brand name will just be the company name
+So Phrozen, Creality, etc
+
+Then I go through it, look for the number of issues with the printer and graph it
+
+## **New New Plan**
+
+Go onto amazon, search "3D printer" and go by that
+You can graph the listings, the ratings, even look at the feature list
+This makes a lot more sense and is a lot easier than the other options
+And Amazon has a full on API that it can use!
+
+Just use the "paws" package and create an account with Amazon Warehouse Services
+For extra credit, do the subreddit thing as well! That works too!
+This way you can create a lot of really interesting graphs and get the best 3D printer!
+
+## **The subreddit thing is genuinely smart because it has a cool idea**
+This way you can look at something without bots and with genuine issues
+The problem is going to be getting the printer name itself from the package
+Something like Official Creality Ender 3 V2 Upgraded 3D printer Integrated... vs Ender 3 V2 is what we want
+But it's going to be pretty hard to get, especially considering there could be multiple listings for the same product
+
+## **This way we can do cool things**
+
+
+
+
+
+
+
 
 
 

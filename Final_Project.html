@@ -185,22 +185,13 @@ printers</code></pre>
 ## [10] &quot;Raise3D Pro2&quot;</code></pre>
 <p>New plan:<br />
 There’s not nearly enough data to compare these printers by, so I’m gonna do something else I’m going to find every single printer that All3DP, one of the main 3d printer review companies, has reviewed All3DP has a clear robots.txt file that lets me access everything so it should be fine Then I can look at those reviews, take out all of the printer names, and go by that Website: <a href="https://all3dp.com/reviews/page/1" class="uri">https://all3dp.com/reviews/page/1</a> CSS selector: .headline–l</p>
-<pre class="r"><code>#&lt;!--This code courtesy of https://stackoverflow.com/questions/14801035/growing-a-list-with-variable-names-in-r--&gt;
-all_names &lt;- vector(mode = &quot;list&quot;, length = 20)
-names(all_names) &lt;- letters[1:20]
-names(all_names)</code></pre>
-<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
-## [20] &quot;t&quot;</code></pre>
-<pre class="r"><code>for(page_number in 1:20){
-  page &lt;- read_html(paste(&quot;https://all3dp.com/reviews/page/&quot;, page_number, &quot;/&quot;, 
-                          sep = &quot;&quot;))
-  page_nodes &lt;- html_nodes(page, &quot;.headline--l&quot;)
-  page_text &lt;- html_text(page_nodes)
-  page_text[str_detect(page_text, pattern = &quot;3D Figures from YouLittle&quot; )]
-  key &lt;- letters[[page_number]]
-  all_names[[key]] &lt;- page_text
-}
-all_names</code></pre>
+<!-- From https://www.datacamp.com/community/tutorials/r-web-scraping-rvest -->
+<!-- Keep in mind that if All3DP asks you to name your user agent to do rvest::user_agent()-->
+<pre class="r"><code>list_of_pages &lt;- str_c(&quot;https://all3dp.com/reviews/page/&quot;, 1:20)
+review_names &lt;- list_of_pages %&gt;%
+                    map(read_page_names, &quot;.headline--l&quot;)
+names(review_names) &lt;- letters[1:20]
+review_names</code></pre>
 <pre><code>## $a
 ##  [1] &quot;Creality Ender 3 V2 Review: Best 3D Printer Under $300&quot;  
 ##  [2] &quot;SeeMeCNC EZR Struder: Review the Specs&quot;                  
@@ -597,22 +588,11 @@ all_names</code></pre>
 ## [13] &quot;Pharaoh ED Review: A 3D Printer Fit For a King?&quot;                                
 ## [14] &quot;Autodesk 123D Sculpt+ Review&quot;                                                   
 ## [15] &quot;3D Figures from YouLittle&quot;</code></pre>
-<pre class="r"><code>page_text</code></pre>
-<pre><code>##  [1] &quot;Yeehaw Wand Review: Designing in Augmented Reality&quot;                             
-##  [2] &quot;Print Plus DIY Headphones Review: Pump Up the Volume&quot;                           
-##  [3] &quot;E3D Ultimaker 2 Extrusion Upgrade Kit Review: The Ultimate Ultimaker 2 Upgrade?&quot;
-##  [4] &quot;3D Printer Kit Review: Fischertechnik 536624&quot;                                   
-##  [5] &quot;Printrbot Play Review: Ideal for Beginners&quot;                                     
-##  [6] &quot;Phrozen Sonic 3D Printer: Review the Specs&quot;                                     
-##  [7] &quot;Portable Migo 3D Printer: Review the Facts Here&quot;                                
-##  [8] &quot;3Doodler Create Review: Using This 3D Printing Pen Is Fun&quot;                      
-##  [9] &quot;BCN3D Sigma Review: A Fantastic 3D Printer&quot;                                     
-## [10] &quot;E3D BigBox 3D Printer Review: Unbeatable (Budget) Performer&quot;                    
-## [11] &quot;CEL Robox Review: A Whole Lot Easier Than Others&quot;                               
-## [12] &quot;CEL Robox 3D Printer: Unboxing &amp; Setup (VIDEO)&quot;                                 
-## [13] &quot;Pharaoh ED Review: A 3D Printer Fit For a King?&quot;                                
-## [14] &quot;Autodesk 123D Sculpt+ Review&quot;                                                   
-## [15] &quot;3D Figures from YouLittle&quot;</code></pre>
+<p>Now that I have the review names, I need to choose the ones that actually have to do with a 3D printer Basically, I’m just going to filter so that the title contains review and doesn’t include bad things For example, “filament”, “scanner”, “CNC”, etc After that, I can get a subreddit using the brand name The brand name will just be the company name So Phrozen, Creality, etc</p>
+<p>Then I go through it, look for the number of issues with the printer and graph it</p>
+<div id="new-new-plan" class="section level2">
+<h2><strong>New New Plan</strong></h2>
+</div>
 
 
 
