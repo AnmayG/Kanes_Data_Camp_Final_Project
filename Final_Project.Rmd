@@ -1,0 +1,66 @@
+---
+title: "Final Project"
+author: "Anmay Gupta"
+date: "6/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(primer.data)
+library(lubridate)
+library(janitor)
+library(skimr)
+library(rvest)
+library(gapminder)
+library(forcats)
+source("functions.R")
+```
+
+Okay, so right now my plan is to go through certain 3D printer recommendations  
+I would do this by looking at the 10 printers listed [here](https://www.3dsourced.com/rankings/best-fdm-3d-printer/)
+I'm safe if I cite them because their robots.txt file only disallows visiting admin pages
+Which means that their data is free for the pickings
+
+Here's an example of what their data looks like:
+I'm using these CSS selectors: #tablepress-10 .column-1:
+
+```{r}
+page <- read_html("https://www.3dsourced.com/rankings/best-fdm-3d-printer/")
+printer_names <- html_nodes(page, "#tablepress-10 .column-1")
+printer_text <- html_text(printer_names)
+printers <- printer_text[2:11]
+printers
+```
+
+New plan:  
+There's not nearly enough data to compare these printers by, so I'm gonna do something else
+I'm going to find every single printer that All3DP, one of the main 3d printer review companies, has reviewed
+All3DP has a clear robots.txt file that lets me access everything so it should be fine
+Then I can look at those reviews, take out all of the printer names, and go by that
+Website: https://all3dp.com/reviews/page/1
+CSS selector: .headline--l
+
+<!-- From https://www.datacamp.com/community/tutorials/r-web-scraping-rvest -->
+```{r}
+list_of_pages <- str_c("https://all3dp.com/reviews/page/", 1:20)
+review_names <- list_of_pages %>%
+                    map(read_page_names, ".headline--l")
+names(review_names) <- letters[1:20]
+review_names
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

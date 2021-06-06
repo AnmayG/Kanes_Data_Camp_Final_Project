@@ -1,0 +1,61 @@
+---
+title: "Final Project"
+author: "Anmay Gupta"
+date: "6/4/2021"
+# output: html_document
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+    seal: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # Make sure to change this if you want to show your code
+```
+
+count: false
+
+class: inverse, center, title-slide, middle
+
+# Demonstrating how you can create slides using moonreader
+
+### Anmay Gupta
+
+---
+
+**R Markdown**
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+--
+
+```{r cars}
+# This is an example of a highlight
+summary(cars) #<<
+```
+
+--
+
+Now, moonreader will do your line breaks and everything for you, but it is not able to shrink text or do anything like that (at least to my knowledge).
+It goes to the word just before the 80 character limit I believe, but your results may vary depending on the previous line of text.
+You use a "---" header to start a new slide and a "--" header to create a new step, like how this text showed up.
+
+---
+**Including Plots**
+
+You can also embed plots, for example:
+--
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+--
+  
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.  
